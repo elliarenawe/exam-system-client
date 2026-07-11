@@ -1,6 +1,6 @@
 import { renderNav } from '../components/nav.js';
 import { requireAuth } from '../utils/helpers.js';
-import { ExamService } from '../services/ExamService.js';
+import { ExamService } from '../services/ExamService.js?v=2';
 
 renderNav('nav');
 
