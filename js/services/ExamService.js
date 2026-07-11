@@ -29,11 +29,13 @@ export class ExamService {
           text: 'What does JSON stand for?',
           options: ['JavaScript Object Notation', 'Java Source Object', 'Joint System Object', 'Java Standard Output'],
           correctIndex: 0,
+          difficulty: 'easy',
         },
         {
           text: 'Where is app data stored in this project?',
           options: ['MySQL', 'MongoDB', 'localStorage', 'Cookies only'],
           correctIndex: 2,
+          difficulty: 'medium',
         },
       ],
     });
@@ -83,6 +85,26 @@ export class ExamService {
         exam.name.toLowerCase().includes(normalized) ||
         exam.code.toUpperCase() === codeQuery,
     );
+  }
+
+  getCategories() {
+    const categories = new Set(this.getAllExams().map((exam) => exam.category).filter(Boolean));
+    return [...categories].sort((a, b) => a.localeCompare(b, 'he'));
+  }
+
+  /** Filter exams by text, category, and question difficulty. */
+  filterExams({ query = '', category = '', difficulty = '' } = {}) {
+    let exams = query.trim() ? this.searchExams(query) : this.getAllExams();
+
+    if (category) {
+      exams = exams.filter((exam) => exam.category === category);
+    }
+
+    if (difficulty) {
+      exams = exams.filter((exam) => exam.questions.some((question) => question.difficulty === difficulty));
+    }
+
+    return exams;
   }
 
   submitExam(examId, studentId, answers) {

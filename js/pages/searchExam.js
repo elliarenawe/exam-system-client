@@ -8,12 +8,29 @@ requireAuth(['student']);
 
 const examService = new ExamService();
 const form = document.getElementById('searchForm');
-const resultsContainer = document.getElementById('searchResults');
-const availableContainer = document.getElementById('availableExams');
+const resultsContainer = document.getElementById('examResults');
+const categorySelect = document.getElementById('categoryFilter');
+const difficultySelect = document.getElementById('difficultyFilter');
+
+function populateCategoryFilter() {
+  const categories = examService.getCategories();
+  categorySelect.innerHTML = [
+    '<option value="">כל הקטגוריות</option>',
+    ...categories.map((category) => `<option value="${category}">${category}</option>`),
+  ].join('');
+}
+
+function getFilters() {
+  return {
+    query: document.getElementById('query').value.trim(),
+    category: categorySelect.value,
+    difficulty: difficultySelect.value,
+  };
+}
 
 function renderExamCards(exams, container) {
   if (!exams.length) {
-    container.innerHTML = '<p class="empty-state">לא נמצאו מבחנים.</p>';
+    container.innerHTML = '<p class="empty-state">לא נמצאו מבחנים לפי הסינון שנבחר.</p>';
     return;
   }
 
@@ -23,7 +40,11 @@ function renderExamCards(exams, container) {
         <div class="card">
           <h3><span dir="ltr" class="ltr-text">${exam.name}</span></h3>
           <p><span dir="ltr" class="ltr-text">${exam.description || 'אין תיאור'}</span></p>
-          <p><span class="badge">${exam.code}</span> <span dir="ltr" class="ltr-text">${exam.category}</span> • ${exam.questions.length} שאלות</p>
+          <p>
+            <span class="badge">${exam.code}</span>
+            <span dir="ltr" class="ltr-text">${exam.category}</span>
+            • ${exam.questions.length} שאלות
+          </p>
           <a class="btn btn-primary" href="take-exam.html?id=${exam.id}">התחל מבחן</a>
         </div>
       `,
@@ -31,11 +52,21 @@ function renderExamCards(exams, container) {
     .join('');
 }
 
+function applyFilters() {
+  renderExamCards(examService.filterExams(getFilters()), resultsContainer);
+}
+
 form.addEventListener('submit', (event) => {
   event.preventDefault();
-  const query = document.getElementById('query').value.trim();
-  renderExamCards(examService.searchExams(query), resultsContainer);
+  applyFilters();
 });
 
-// הצגת כל המבחנים הזמינים בטעינת הדף
-renderExamCards(examService.getAllExams(), availableContainer);
+document.getElementById('clearFiltersBtn').addEventListener('click', () => {
+  document.getElementById('query').value = '';
+  categorySelect.value = '';
+  difficultySelect.value = '';
+  applyFilters();
+});
+
+populateCategoryFilter();
+applyFilters();

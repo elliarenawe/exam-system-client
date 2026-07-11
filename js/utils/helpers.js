@@ -4,6 +4,17 @@ export function appPath(relativePath) {
   return inSubfolder ? `../${relativePath}` : relativePath;
 }
 
+/** Supported question difficulty levels. */
+export const DIFFICULTY_LEVELS = [
+  { value: 'easy', label: 'קל' },
+  { value: 'medium', label: 'בינוני' },
+  { value: 'hard', label: 'קשה' },
+];
+
+export function getDifficultyLabel(value) {
+  return DIFFICULTY_LEVELS.find((level) => level.value === value)?.label || value;
+}
+
 export function generateId(prefix = 'id') {
   return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
 }

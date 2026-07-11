@@ -1,5 +1,6 @@
 import { logout, appPath } from '../utils/helpers.js';
 import { AuthService } from '../services/AuthService.js';
+import { getTheme, toggleTheme } from './theme.js';
 
 const authService = new AuthService();
 
@@ -9,6 +10,7 @@ export function renderNav(containerId) {
   if (!container) return;
 
   const user = authService.getCurrentUser();
+  const isDark = getTheme() === 'dark';
 
   let links = `<a href="${appPath('index.html')}">דף ראשי</a>`;
 
@@ -26,6 +28,8 @@ export function renderNav(containerId) {
     links += `<a href="${appPath('register.html')}">הרשמה</a>`;
   }
 
+  links += `<button type="button" class="btn btn-secondary" id="themeToggleBtn">${isDark ? 'מצב בהיר' : 'מצב כהה'}</button>`;
+
   container.innerHTML = `
     <nav class="navbar">
       <div class="inner">
@@ -34,6 +38,11 @@ export function renderNav(containerId) {
       </div>
     </nav>
   `;
+
+  container.querySelector('#themeToggleBtn')?.addEventListener('click', () => {
+    toggleTheme();
+    renderNav(containerId);
+  });
 }
 
 // שומרים את הפונקציה לשימוש ישיר מדפים אחרים

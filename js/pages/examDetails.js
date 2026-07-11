@@ -1,5 +1,5 @@
 import { renderNav } from '../components/nav.js';
-import { requireAuth, getQueryParam, formatDate } from '../utils/helpers.js';
+import { requireAuth, getQueryParam, formatDate, getDifficultyLabel } from '../utils/helpers.js';
 import { ExamService } from '../services/ExamService.js?v=2';
 import { StorageService } from '../services/StorageService.js';
 
@@ -54,6 +54,7 @@ function renderQuestions() {
         <div class="question-block">
           <p class="question-title">
             <bdi class="rtl-label">שאלה ${index + 1}:</bdi>
+            <span class="badge badge-difficulty-${question.difficulty || 'medium'}">${getDifficultyLabel(question.difficulty || 'medium')}</span>
             <span dir="ltr" class="ltr-text">${question.text}</span>
           </p>
           <ul>${question.options.map((option, optionIndex) => `<li><span dir="ltr" class="ltr-text">${optionIndex === question.correctIndex ? '✅ ' : ''}${option}</span></li>`).join('')}</ul>
@@ -128,6 +129,7 @@ document.getElementById('addQuestionForm').addEventListener('submit', (event) =>
     text: document.getElementById('questionText').value.trim(),
     options,
     correctIndex: document.getElementById('correctIndex').value,
+    difficulty: document.getElementById('questionDifficulty').value,
   });
 
   examService.updateExam(exam.id, exam.toJSON());

@@ -1,5 +1,5 @@
 import { renderNav } from '../components/nav.js';
-import { requireAuth, getQueryParam } from '../utils/helpers.js';
+import { requireAuth, getQueryParam, getDifficultyLabel } from '../utils/helpers.js';
 import { ExamService } from '../services/ExamService.js?v=2';
 
 renderNav('nav');
@@ -56,6 +56,7 @@ if (!exam.questions.length) {
         <div class="question-block">
           <p class="question-title">
             <bdi class="rtl-label">שאלה ${index + 1}:</bdi>
+            <span class="badge badge-difficulty-${question.difficulty || 'medium'}">${getDifficultyLabel(question.difficulty || 'medium')}</span>
             <span dir="ltr" class="ltr-text">${question.text}</span>
           </p>
           ${question.options
@@ -85,6 +86,7 @@ function buildCorrectAnswersReview(answers) {
         <div class="question-block">
           <p class="question-title">
             <bdi class="rtl-label">שאלה ${index + 1}:</bdi>
+            <span class="badge badge-difficulty-${question.difficulty || 'medium'}">${getDifficultyLabel(question.difficulty || 'medium')}</span>
             <span dir="ltr" class="ltr-text">${question.text}</span>
           </p>
           ${isCorrect ? '✅ נכון' : `❌ שגוי – התשובה הנכונה: <span dir="ltr" class="ltr-text">${question.options[question.correctIndex]}</span>`}

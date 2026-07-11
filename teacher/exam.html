@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>פרטי מבחן | מערכת מבחנים</title>
+  <script src="../js/theme-init.js"></script>
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
@@ -34,6 +35,14 @@
           <input class="option-input" placeholder="תשובה 2" required>
           <input class="option-input" placeholder="תשובה 3">
           <input class="option-input" placeholder="תשובה 4">
+        </div>
+        <div class="form-group">
+          <label for="questionDifficulty">רמת קושי</label>
+          <select id="questionDifficulty" required>
+            <option value="easy">קל</option>
+            <option value="medium" selected>בינוני</option>
+            <option value="hard">קשה</option>
+          </select>
         </div>
         <div class="form-group">
           <label for="correctIndex">אינדקס תשובה נכונה (0-3)</label>
