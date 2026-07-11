@@ -21,11 +21,11 @@ form.addEventListener('submit', (event) => {
       role: document.getElementById('role').value,
     });
 
-    message.innerHTML = '<div class="alert alert-success">Registration successful. Redirecting to login...</div>';
+    message.innerHTML = '<div class="alert alert-success">ההרשמה הצליחה. מעביר לדף התחברות...</div>';
     setTimeout(() => {
       window.location.href = appPath('login.html');
     }, 1000);
   } catch (error) {
-    message.innerHTML = `<div class="alert alert-error">${error.message}</div>`;
+    message.innerHTML = `<div class="alert alert-error">${error.message === 'User with this email or ID already exists' ? 'משתמש עם אימייל או ת.ז זה כבר קיים' : error.message}</div>`;
   }
 });

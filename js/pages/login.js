@@ -20,6 +20,6 @@ form.addEventListener('submit', (event) => {
 
     window.location.href = user.role === 'teacher' ? appPath('teacher/index.html') : appPath('student/index.html');
   } catch (error) {
-    message.innerHTML = `<div class="alert alert-error">${error.message}</div>`;
+    message.innerHTML = `<div class="alert alert-error">${error.message === 'Invalid email or password' ? 'אימייל או סיסמה שגויים' : error.message}</div>`;
   }
 });
