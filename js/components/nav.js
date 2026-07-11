@@ -28,7 +28,7 @@ export function renderNav(containerId) {
     links += `<a href="${appPath('register.html')}">הרשמה</a>`;
   }
 
-  links += `<button type="button" class="btn btn-secondary" id="themeToggleBtn">${isDark ? 'מצב בהיר' : 'מצב כהה'}</button>`;
+  links += `<button type="button" class="btn btn-theme" id="themeToggleBtn" title="החלפת מצב תצוגה">${isDark ? '☀️ מצב בהיר' : '🌙 מצב כהה'}</button>`;
 
   container.innerHTML = `
     <nav class="navbar">

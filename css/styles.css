@@ -156,6 +156,18 @@ a:hover {
   color: #fff;
 }
 
+.btn-theme {
+  background: var(--card);
+  color: var(--text);
+  border: 2px solid var(--primary);
+  font-weight: 700;
+}
+
+.btn-theme:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
 .btn + .btn {
   margin-inline-start: 8px;
 }
