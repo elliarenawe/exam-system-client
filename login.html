@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>התחברות | מערכת מבחנים</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="nav"></div>
+
+  <main class="container">
+    <section class="card" style="max-width: 520px; margin: 0 auto;">
+      <h1>התחברות</h1>
+      <p>משתמשי דמו: teacher@demo.com / student@demo.com (סיסמה: 1234)</p>
+      <div id="message"></div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">אימייל</label>
+          <input id="email" type="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">סיסמה</label>
+          <input id="password" type="password" required>
+        </div>
+        <button class="btn btn-primary" type="submit">התחבר</button>
+      </form>
+    </section>
+  </main>
+
+  <script type="module" src="js/pages/login.js"></script>
+</body>
+</html>
