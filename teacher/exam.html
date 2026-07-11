@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam Details</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div id="nav"></div>
+
+  <main class="container">
+    <section class="card">
+      <h1 id="examTitle">Exam Details</h1>
+      <div id="examInfo"></div>
+      <div class="actions">
+        <button class="btn btn-primary" id="saveExamBtn">Save Changes</button>
+        <button class="btn btn-danger" id="deleteExamBtn">Delete Exam</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Questions</h2>
+      <div id="questionsList"></div>
+      <form id="addQuestionForm">
+        <h3>Add Question</h3>
+        <div class="form-group">
+          <label for="questionText">Question</label>
+          <input id="questionText" required>
+        </div>
+        <div class="form-group">
+          <label>Options</label>
+          <input class="option-input" placeholder="Option 1" required>
+          <input class="option-input" placeholder="Option 2" required>
+          <input class="option-input" placeholder="Option 3">
+          <input class="option-input" placeholder="Option 4">
+        </div>
+        <div class="form-group">
+          <label for="correctIndex">Correct Answer Index (0-3)</label>
+          <input id="correctIndex" type="number" min="0" max="3" value="0" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Add Question</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Student Results</h2>
+      <div id="resultsList"></div>
+    </section>
+  </main>
+
+  <script type="module" src="../js/pages/examDetails.js"></script>
+</body>
+</html>
