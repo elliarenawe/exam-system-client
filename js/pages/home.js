@@ -15,8 +15,8 @@ list.innerHTML = teamMembers
       <li>
         <strong>${member.name}</strong><br>
         ת.ז: ${member.idNumber}<br>
-        GitHub: <a href="${member.github}" target="_blank" rel="noopener">${member.github}</a><br>
-        Deploy: <a href="${member.deploy}" target="_blank" rel="noopener">${member.deploy}</a>
+        GitHub: <a href="${member.github}" target="_blank" rel="noopener" dir="ltr">${member.github}</a><br>
+        Deploy: <a href="${member.deploy}" target="_blank" rel="noopener" dir="ltr">${member.deploy}</a>
       </li>
     `,
   )

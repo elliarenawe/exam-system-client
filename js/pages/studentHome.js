@@ -25,7 +25,7 @@ if (!results.length) {
         ${results
           .map((result) => {
             const exam = examService.getExamById(result.examId);
-            return `<tr><td>${exam?.name || result.examId}</td><td>${result.score}%</td><td>${formatDate(result.submittedAt)}</td></tr>`;
+            return `<tr><td><span dir="ltr" class="ltr-text">${exam?.name || result.examId}</span></td><td>${result.score}%</td><td>${formatDate(result.submittedAt)}</td></tr>`;
           })
           .join('')}
       </tbody>

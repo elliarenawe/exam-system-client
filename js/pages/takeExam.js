@@ -16,8 +16,8 @@ if (!exam) {
   throw new Error('Exam not found');
 }
 
-document.getElementById('examTitle').textContent = exam.name;
-document.getElementById('examMeta').textContent = `${exam.category} • ${exam.durationMinutes} דקות • ${exam.questions.length} שאלות`;
+document.getElementById('examTitle').innerHTML = `<span dir="ltr" class="ltr-text block">${exam.name}</span>`;
+document.getElementById('examMeta').innerHTML = `<span dir="ltr" class="ltr-text">${exam.category}</span> • ${exam.durationMinutes} דקות • ${exam.questions.length} שאלות`;
 
 const questionsContainer = document.getElementById('questionsContainer');
 const timerBox = document.getElementById('timerBox');
@@ -54,13 +54,16 @@ if (!exam.questions.length) {
     .map(
       (question, index) => `
         <div class="question-block">
-          <strong>שאלה ${index + 1}:</strong> ${question.text}
+          <p class="question-title">
+            <bdi class="rtl-label">שאלה ${index + 1}:</bdi>
+            <span dir="ltr" class="ltr-text">${question.text}</span>
+          </p>
           ${question.options
             .map(
               (option, optionIndex) => `
                 <label class="option-row">
                   <input type="radio" name="question_${index}" value="${optionIndex}" required>
-                  <span>${option}</span>
+                  <span dir="ltr" class="ltr-text">${option}</span>
                 </label>
               `,
             )
@@ -80,8 +83,11 @@ function buildCorrectAnswersReview(answers) {
       const isCorrect = selected === question.correctIndex;
       return `
         <div class="question-block">
-          <strong>שאלה ${index + 1}:</strong> ${question.text}<br>
-          ${isCorrect ? '✅ נכון' : `❌ שגוי – התשובה הנכונה: ${question.options[question.correctIndex]}`}
+          <p class="question-title">
+            <bdi class="rtl-label">שאלה ${index + 1}:</bdi>
+            <span dir="ltr" class="ltr-text">${question.text}</span>
+          </p>
+          ${isCorrect ? '✅ נכון' : `❌ שגוי – התשובה הנכונה: <span dir="ltr" class="ltr-text">${question.options[question.correctIndex]}</span>`}
         </div>
       `;
     })

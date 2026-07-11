@@ -26,11 +26,11 @@ if (exam.teacherId !== user.id) {
 }
 
 function renderExamInfo() {
-  document.getElementById('examTitle').textContent = exam.name;
+  document.getElementById('examTitle').innerHTML = `<span dir="ltr" class="ltr-text block">${exam.name}</span>`;
   document.getElementById('examInfo').innerHTML = `
-    <p><strong>ID:</strong> ${exam.id}</p>
+    <p><strong>ID:</strong> <span dir="ltr" class="ltr-text">${exam.id}</span></p>
     <p><strong>קוד מבחן:</strong> <span class="badge">${exam.code}</span></p>
-    <p><strong>קטגוריה:</strong> ${exam.category}</p>
+    <p><strong>קטגוריה:</strong> <span dir="ltr" class="ltr-text">${exam.category}</span></p>
     <p><strong>משך זמן:</strong> ${exam.durationMinutes} דקות</p>
     <div class="form-group"><label>תיאור</label><textarea id="description">${exam.description}</textarea></div>
     <div class="grid-2">
@@ -52,8 +52,11 @@ function renderQuestions() {
     .map(
       (question, index) => `
         <div class="question-block">
-          <strong>שאלה ${index + 1}:</strong> ${question.text}
-          <ul>${question.options.map((option, optionIndex) => `<li>${optionIndex === question.correctIndex ? '✅' : ''} ${option}</li>`).join('')}</ul>
+          <p class="question-title">
+            <bdi class="rtl-label">שאלה ${index + 1}:</bdi>
+            <span dir="ltr" class="ltr-text">${question.text}</span>
+          </p>
+          <ul>${question.options.map((option, optionIndex) => `<li><span dir="ltr" class="ltr-text">${optionIndex === question.correctIndex ? '✅ ' : ''}${option}</span></li>`).join('')}</ul>
           <button class="btn btn-danger remove-question" data-id="${question.id}">מחק שאלה</button>
         </div>
       `,

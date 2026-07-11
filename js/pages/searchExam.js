@@ -21,9 +21,9 @@ function renderExamCards(exams, container) {
     .map(
       (exam) => `
         <div class="card">
-          <h3>${exam.name}</h3>
-          <p>${exam.description || 'אין תיאור'}</p>
-          <p><span class="badge">${exam.code}</span> ${exam.category} • ${exam.questions.length} שאלות</p>
+          <h3><span dir="ltr" class="ltr-text">${exam.name}</span></h3>
+          <p><span dir="ltr" class="ltr-text">${exam.description || 'אין תיאור'}</span></p>
+          <p><span class="badge">${exam.code}</span> <span dir="ltr" class="ltr-text">${exam.category}</span> • ${exam.questions.length} שאלות</p>
           <a class="btn btn-primary" href="take-exam.html?id=${exam.id}">התחל מבחן</a>
         </div>
       `,

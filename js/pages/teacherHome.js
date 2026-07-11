@@ -37,9 +37,9 @@ function renderExams() {
           .map(
             (exam) => `
               <tr>
-                <td>${exam.name}</td>
+                <td><span dir="ltr" class="ltr-text">${exam.name}</span></td>
                 <td><span class="badge">${exam.code}</span></td>
-                <td>${exam.category}</td>
+                <td><span dir="ltr" class="ltr-text">${exam.category}</span></td>
                 <td>${exam.questions.length}</td>
                 <td>${formatDate(exam.updatedAt)}</td>
                 <td><a class="btn btn-secondary" href="exam.html?id=${exam.id}">ניהול</a></td>

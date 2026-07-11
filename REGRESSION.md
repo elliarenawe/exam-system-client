@@ -40,7 +40,7 @@
 |------|--------|
 | Available exams list | ✅ |
 | Search by name | ✅ |
-| Search by code | ❌ → **fixed** (case mismatch bug) |
+| Search by code | ✅ (fixed + verified live 2026-07-11) |
 | Take exam + timer | ✅ |
 | Submit + immediate score | ✅ 100% |
 | Answer review after submit | ✅ |
