@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div id="nav"></div>
+
+  <main class="container">
+    <section class="card hero">
+      <h1>Student Dashboard</h1>
+      <p id="welcomeText"></p>
+      <a class="btn btn-primary" href="search.html">Search Exam</a>
+    </section>
+
+    <section class="stats">
+      <div class="stat-box">
+        <span>Average Score</span>
+        <strong id="averageScore">0</strong>
+      </div>
+      <div class="stat-box">
+        <span>Exams Taken</span>
+        <strong id="examCount">0</strong>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Exam History</h2>
+      <div id="historyList"></div>
+    </section>
+  </main>
+
+  <script type="module" src="../js/pages/studentHome.js"></script>
+</body>
+</html>
