@@ -8,14 +8,15 @@ const user = requireAuth(['teacher']);
 if (!user) throw new Error('Unauthorized');
 
 const examService = new ExamService();
-document.getElementById('welcomeText').textContent = `Welcome, ${user.name}`;
+document.getElementById('welcomeText').textContent = `שלום, ${user.name}`;
 
+/** מציג את רשימת המבחנים של המורה המחובר */
 function renderExams() {
   const exams = examService.getExamsByTeacher(user.id);
   const container = document.getElementById('examList');
 
   if (!exams.length) {
-    container.innerHTML = '<p class="empty-state">No exams yet. Create your first exam.</p>';
+    container.innerHTML = '<p class="empty-state">עדיין לא נוצרו מבחנים. לחץ על "יצירת מבחן חדש".</p>';
     return;
   }
 
@@ -23,12 +24,12 @@ function renderExams() {
     <table class="table">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Code</th>
-          <th>Category</th>
-          <th>Questions</th>
-          <th>Updated</th>
-          <th>Actions</th>
+          <th>שם</th>
+          <th>קוד</th>
+          <th>קטגוריה</th>
+          <th>שאלות</th>
+          <th>עודכן</th>
+          <th>פעולות</th>
         </tr>
       </thead>
       <tbody>
@@ -41,7 +42,7 @@ function renderExams() {
                 <td>${exam.category}</td>
                 <td>${exam.questions.length}</td>
                 <td>${formatDate(exam.updatedAt)}</td>
-                <td><a class="btn btn-secondary" href="exam.html?id=${exam.id}">Manage</a></td>
+                <td><a class="btn btn-secondary" href="exam.html?id=${exam.id}">ניהול</a></td>
               </tr>
             `,
           )

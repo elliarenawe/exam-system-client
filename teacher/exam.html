@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exam Details</title>
+  <title>פרטי מבחן | מערכת מבחנים</title>
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
@@ -11,40 +11,40 @@
 
   <main class="container">
     <section class="card">
-      <h1 id="examTitle">Exam Details</h1>
+      <h1 id="examTitle">פרטי מבחן</h1>
       <div id="examInfo"></div>
       <div class="actions">
-        <button class="btn btn-primary" id="saveExamBtn">Save Changes</button>
-        <button class="btn btn-danger" id="deleteExamBtn">Delete Exam</button>
+        <button class="btn btn-primary" id="saveExamBtn">שמור שינויים</button>
+        <button class="btn btn-danger" id="deleteExamBtn">מחק מבחן</button>
       </div>
     </section>
 
     <section class="card">
-      <h2>Questions</h2>
+      <h2>ניהול שאלות</h2>
       <div id="questionsList"></div>
       <form id="addQuestionForm">
-        <h3>Add Question</h3>
+        <h3>הוספת שאלה</h3>
         <div class="form-group">
-          <label for="questionText">Question</label>
+          <label for="questionText">נוסח השאלה</label>
           <input id="questionText" required>
         </div>
         <div class="form-group">
-          <label>Options</label>
-          <input class="option-input" placeholder="Option 1" required>
-          <input class="option-input" placeholder="Option 2" required>
-          <input class="option-input" placeholder="Option 3">
-          <input class="option-input" placeholder="Option 4">
+          <label>אפשרויות תשובה</label>
+          <input class="option-input" placeholder="תשובה 1" required>
+          <input class="option-input" placeholder="תשובה 2" required>
+          <input class="option-input" placeholder="תשובה 3">
+          <input class="option-input" placeholder="תשובה 4">
         </div>
         <div class="form-group">
-          <label for="correctIndex">Correct Answer Index (0-3)</label>
+          <label for="correctIndex">אינדקס תשובה נכונה (0-3)</label>
           <input id="correctIndex" type="number" min="0" max="3" value="0" required>
         </div>
-        <button class="btn btn-primary" type="submit">Add Question</button>
+        <button class="btn btn-primary" type="submit">הוסף שאלה</button>
       </form>
     </section>
 
     <section class="card">
-      <h2>Student Results</h2>
+      <h2>תוצאות תלמידים</h2>
       <div id="resultsList"></div>
     </section>
   </main>

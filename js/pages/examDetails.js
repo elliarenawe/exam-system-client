@@ -13,31 +13,38 @@ const examService = new ExamService();
 const userStorage = new StorageService('exam_users');
 
 let exam = examService.getExamById(examId);
+
 if (!exam) {
-  document.body.innerHTML = '<main class="container"><div class="card">Exam not found.</div></main>';
+  document.body.innerHTML = '<main class="container"><div class="card">המבחן לא נמצא.</div></main>';
   throw new Error('Exam not found');
+}
+
+// מורה יכול לנהל רק מבחנים שיצר בעצמו
+if (exam.teacherId !== user.id) {
+  document.body.innerHTML = '<main class="container"><div class="card">אין הרשאה לערוך מבחן זה.</div></main>';
+  throw new Error('Forbidden');
 }
 
 function renderExamInfo() {
   document.getElementById('examTitle').textContent = exam.name;
   document.getElementById('examInfo').innerHTML = `
     <p><strong>ID:</strong> ${exam.id}</p>
-    <p><strong>Code:</strong> <span class="badge">${exam.code}</span></p>
-    <p><strong>Category:</strong> ${exam.category}</p>
-    <p><strong>Duration:</strong> ${exam.durationMinutes} minutes</p>
-    <div class="form-group"><label>Description</label><textarea id="description">${exam.description}</textarea></div>
+    <p><strong>קוד מבחן:</strong> <span class="badge">${exam.code}</span></p>
+    <p><strong>קטגוריה:</strong> ${exam.category}</p>
+    <p><strong>משך זמן:</strong> ${exam.durationMinutes} דקות</p>
+    <div class="form-group"><label>תיאור</label><textarea id="description">${exam.description}</textarea></div>
     <div class="grid-2">
-      <div class="form-group"><label>Name</label><input id="name" value="${exam.name}"></div>
-      <div class="form-group"><label>Category</label><input id="category" value="${exam.category}"></div>
+      <div class="form-group"><label>שם המבחן</label><input id="name" value="${exam.name}"></div>
+      <div class="form-group"><label>קטגוריה</label><input id="category" value="${exam.category}"></div>
     </div>
-    <div class="form-group"><label>Duration (minutes)</label><input id="durationMinutes" type="number" value="${exam.durationMinutes}"></div>
+    <div class="form-group"><label>משך זמן (דקות)</label><input id="durationMinutes" type="number" value="${exam.durationMinutes}"></div>
   `;
 }
 
 function renderQuestions() {
   const container = document.getElementById('questionsList');
   if (!exam.questions.length) {
-    container.innerHTML = '<p class="empty-state">No questions yet.</p>';
+    container.innerHTML = '<p class="empty-state">אין שאלות עדיין.</p>';
     return;
   }
 
@@ -45,9 +52,9 @@ function renderQuestions() {
     .map(
       (question, index) => `
         <div class="question-block">
-          <strong>Q${index + 1}:</strong> ${question.text}
+          <strong>שאלה ${index + 1}:</strong> ${question.text}
           <ul>${question.options.map((option, optionIndex) => `<li>${optionIndex === question.correctIndex ? '✅' : ''} ${option}</li>`).join('')}</ul>
-          <button class="btn btn-danger remove-question" data-id="${question.id}">Remove</button>
+          <button class="btn btn-danger remove-question" data-id="${question.id}">מחק שאלה</button>
         </div>
       `,
     )
@@ -69,13 +76,13 @@ function renderResults() {
   const container = document.getElementById('resultsList');
 
   if (!results.length) {
-    container.innerHTML = '<p class="empty-state">No student submissions yet.</p>';
+    container.innerHTML = '<p class="empty-state">אין הגשות תלמידים עדיין.</p>';
     return;
   }
 
   container.innerHTML = `
     <table class="table">
-      <thead><tr><th>Student</th><th>Score</th><th>Submitted</th></tr></thead>
+      <thead><tr><th>סטודנט</th><th>ציון</th><th>תאריך הגשה</th></tr></thead>
       <tbody>
         ${results
           .map((result) => {
@@ -97,12 +104,12 @@ document.getElementById('saveExamBtn').addEventListener('click', () => {
     questions: exam.questions.map((q) => q.toJSON()),
     teacherId: user.id,
   });
-  alert('Exam updated successfully');
+  alert('המבחן עודכן בהצלחה');
   renderExamInfo();
 });
 
 document.getElementById('deleteExamBtn').addEventListener('click', () => {
-  if (confirm('Delete this exam?')) {
+  if (confirm('למחוק את המבחן?')) {
     examService.deleteExam(exam.id);
     window.location.href = 'index.html';
   }
