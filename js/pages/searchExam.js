@@ -9,21 +9,22 @@ requireAuth(['student']);
 const examService = new ExamService();
 const form = document.getElementById('searchForm');
 const resultsContainer = document.getElementById('searchResults');
+const availableContainer = document.getElementById('availableExams');
 
-function renderResults(exams) {
+function renderExamCards(exams, container) {
   if (!exams.length) {
-    resultsContainer.innerHTML = '<p class="empty-state">No exams found.</p>';
+    container.innerHTML = '<p class="empty-state">לא נמצאו מבחנים.</p>';
     return;
   }
 
-  resultsContainer.innerHTML = exams
+  container.innerHTML = exams
     .map(
       (exam) => `
         <div class="card">
           <h3>${exam.name}</h3>
-          <p>${exam.description || 'No description'}</p>
-          <p><span class="badge">${exam.code}</span> ${exam.category} • ${exam.questions.length} questions</p>
-          <a class="btn btn-primary" href="take-exam.html?id=${exam.id}">Start Exam</a>
+          <p>${exam.description || 'אין תיאור'}</p>
+          <p><span class="badge">${exam.code}</span> ${exam.category} • ${exam.questions.length} שאלות</p>
+          <a class="btn btn-primary" href="take-exam.html?id=${exam.id}">התחל מבחן</a>
         </div>
       `,
     )
@@ -33,7 +34,8 @@ function renderResults(exams) {
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   const query = document.getElementById('query').value.trim();
-  renderResults(examService.searchExams(query));
+  renderExamCards(examService.searchExams(query), resultsContainer);
 });
 
-renderResults(examService.getAllExams());
+// הצגת כל המבחנים הזמינים בטעינת הדף
+renderExamCards(examService.getAllExams(), availableContainer);

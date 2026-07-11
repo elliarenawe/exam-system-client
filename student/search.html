@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search Exam</title>
+  <title>חיפוש מבחן | מערכת מבחנים</title>
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
@@ -11,17 +11,23 @@
 
   <main class="container">
     <section class="card">
-      <h1>Search Exam</h1>
+      <h1>חיפוש מבחן</h1>
+      <p>חפש לפי שם מבחן או קוד מבחן</p>
       <form id="searchForm" class="grid-2">
         <div class="form-group">
-          <label for="query">Search by name or code</label>
-          <input id="query" placeholder="Exam name or code" required>
+          <label for="query">חיפוש</label>
+          <input id="query" placeholder="שם או קוד מבחן" required>
         </div>
         <div class="form-group" style="display:flex; align-items:flex-end;">
-          <button class="btn btn-primary" type="submit">Search</button>
+          <button class="btn btn-primary" type="submit">חפש</button>
         </div>
       </form>
       <div id="searchResults"></div>
+    </section>
+
+    <section class="card">
+      <h2>מבחנים זמינים</h2>
+      <div id="availableExams"></div>
     </section>
   </main>
 

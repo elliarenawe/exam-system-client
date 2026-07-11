@@ -8,7 +8,7 @@ const user = requireAuth(['student']);
 if (!user) throw new Error('Unauthorized');
 
 const examService = new ExamService();
-document.getElementById('welcomeText').textContent = `Welcome, ${user.name}`;
+document.getElementById('welcomeText').textContent = `שלום, ${user.name}`;
 
 const results = examService.getResultsByStudent(user.id);
 document.getElementById('averageScore').textContent = `${examService.getStudentAverage(user.id)}%`;
@@ -16,11 +16,11 @@ document.getElementById('examCount').textContent = String(results.length);
 
 const historyList = document.getElementById('historyList');
 if (!results.length) {
-  historyList.innerHTML = '<p class="empty-state">No exams taken yet.</p>';
+  historyList.innerHTML = '<p class="empty-state">עדיין לא ביצעת מבחנים.</p>';
 } else {
   historyList.innerHTML = `
     <table class="table">
-      <thead><tr><th>Exam</th><th>Score</th><th>Date</th></tr></thead>
+      <thead><tr><th>מבחן</th><th>ציון</th><th>תאריך</th></tr></thead>
       <tbody>
         ${results
           .map((result) => {
