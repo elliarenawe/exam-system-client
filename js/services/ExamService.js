@@ -77,10 +77,11 @@ export class ExamService {
 
   searchExams(query) {
     const normalized = query.trim().toLowerCase();
+    const codeQuery = query.trim().toUpperCase();
     return this.getAllExams().filter(
       (exam) =>
         exam.name.toLowerCase().includes(normalized) ||
-        exam.code.toLowerCase() === normalized.toUpperCase(),
+        exam.code.toUpperCase() === codeQuery,
     );
   }
 
