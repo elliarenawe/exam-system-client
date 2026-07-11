@@ -3,8 +3,8 @@
 מערכת מבחנים מלאה הפועלת **בדפדפן בלבד** – פרויקט לקורס **סדנת תכנות בסביבת האינטרנט**, מכללת תל-חי.
 
 ## קישורים
-- **GitHub:** https://github.com/Mohammad-Safadi/exam-system-client
-- **Deploy (GitHub Pages):** https://mohammad-safadi.github.io/exam-system-client/
+- **GitHub:** https://github.com/elliarenawe/exam-system-client
+- **Deploy (GitHub Pages):** https://elliarenawe.github.io/exam-system-client/
 
 ## טכנולוגיות
 - ES Modules

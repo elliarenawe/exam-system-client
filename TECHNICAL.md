@@ -3,8 +3,8 @@
 ## GitHub + Deploy
 | | כתובת |
 |---|--------|
-| קוד מקור | https://github.com/Mohammad-Safadi/exam-system-client |
-| אתר חי | https://mohammad-safadi.github.io/exam-system-client/ |
+| קוד מקור | https://github.com/elliarenawe/exam-system-client |
+| אתר חי | https://elliarenawe.github.io/exam-system-client/ |
 
 ## דפים וניווט
 

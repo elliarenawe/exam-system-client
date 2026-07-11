@@ -3,8 +3,8 @@ const teamMembers = [
   {
     name: 'אילייא רינאוי',
     idNumber: '—',
-    github: 'https://github.com/Mohammad-Safadi/exam-system-client',
-    deploy: 'https://mohammad-safadi.github.io/exam-system-client/',
+    github: 'https://github.com/elliarenawe/exam-system-client',
+    deploy: 'https://elliarenawe.github.io/exam-system-client/',
   },
 ];
 
