@@ -1,118 +1,215 @@
-# Technical Document
+# מסמך טכני – מערכת מבחנים
 
 ## GitHub + Deploy
-- Source repo: `https://github.com/Mohammad-Safadi/exam-system-client`
-- GitHub Pages deploy URL: `https://mohammad-safadi.github.io/exam-system-client/`
+| | כתובת |
+|---|--------|
+| קוד מקור | https://github.com/Mohammad-Safadi/exam-system-client |
+| אתר חי | https://mohammad-safadi.github.io/exam-system-client/ |
 
-## Site Pages and Navigation
+## דפים וניווט
 
-| Page | Path | Access |
-|------|------|--------|
-| Home | `/index.html` | Public |
-| Register | `/register.html` | Public |
-| Login | `/login.html` | Public |
-| Teacher Dashboard | `/teacher/index.html` | Teacher |
-| Create Exam | `/teacher/create-exam.html` | Teacher |
-| Exam Details | `/teacher/exam.html?id=...` | Teacher |
-| Student Dashboard | `/student/index.html` | Student |
-| Search Exam | `/student/search.html` | Student |
-| Take Exam | `/student/take-exam.html?id=...` | Student |
+```
+index.html ──► login.html / register.html
+                    │
+         ┌──────────┴──────────┐
+         ▼                     ▼
+ teacher/index.html    student/index.html
+         │                     │
+         ├── create-exam.html  ├── search.html
+         └── exam.html         └── take-exam.html
 
-Logout is available from navbar on authenticated pages and returns to home.
-
-## JSON Storage Formats
-
-### Users (`exam_users`)
-```json
-[
-  {
-    "id": "user_...",
-    "name": "Demo Teacher",
-    "idNumber": "123456789",
-    "email": "teacher@demo.com",
-    "password": "1234",
-    "role": "teacher",
-    "createdAt": "2026-07-11T12:00:00.000Z"
-  }
-]
+logout.html ──► index.html (מכל דף דרך navbar)
 ```
 
-### Exams (`exam_exams`)
+| דף | נתיב | גישה |
+|----|------|------|
+| דף ראשי | `/index.html` | ציבורי |
+| הרשמה | `/register.html` | ציבורי |
+| התחברות | `/login.html` | ציבורי |
+| התנתקות | `/logout.html` | מחוברים |
+| אזור מורה | `/teacher/index.html` | מורה |
+| יצירת מבחן | `/teacher/create-exam.html` | מורה |
+| פרטי מבחן | `/teacher/exam.html?id=...` | מורה (בעלים בלבד) |
+| אזור סטודנט | `/student/index.html` | סטודנט |
+| חיפוש | `/student/search.html` | סטודנט |
+| ביצוע מבחן | `/student/take-exam.html?id=...` | סטודנט |
+
+## פורמט JSON ב-localStorage
+
+### משתמשים – `exam_users`
 ```json
-[
-  {
-    "id": "exam_...",
-    "name": "JavaScript Basics",
-    "description": "Intro quiz",
-    "category": "Web",
-    "code": "A1B2C3",
-    "durationMinutes": 30,
-    "teacherId": "user_...",
-    "questions": [
-      {
-        "id": "question_...",
-        "text": "What is JSON?",
-        "options": ["Format", "Language", "Database", "Framework"],
-        "correctIndex": 0
-      }
-    ],
-    "createdAt": "2026-07-11T12:00:00.000Z",
-    "updatedAt": "2026-07-11T12:00:00.000Z"
-  }
-]
+[{
+  "id": "user_...",
+  "name": "Demo Teacher",
+  "idNumber": "123456789",
+  "email": "teacher@demo.com",
+  "password": "1234",
+  "role": "teacher",
+  "createdAt": "2026-07-11T12:00:00.000Z"
+}]
 ```
 
-### Results (`exam_results`)
+### מבחנים – `exam_exams`
 ```json
-[
-  {
-    "id": "result_...",
-    "examId": "exam_...",
-    "studentId": "user_...",
-    "answers": [0, 2, 1],
-    "score": 67,
-    "submittedAt": "2026-07-11T12:30:00.000Z"
-  }
-]
+[{
+  "id": "exam_...",
+  "name": "JavaScript Basics",
+  "description": "מבחן דemo",
+  "category": "Web",
+  "code": "A1B2C3",
+  "durationMinutes": 30,
+  "teacherId": "user_...",
+  "questions": [{
+    "id": "question_...",
+    "text": "מה זה JSON?",
+    "options": ["פורמט", "שפה", "DB", "Framework"],
+    "correctIndex": 0
+  }],
+  "createdAt": "...",
+  "updatedAt": "..."
+}]
 ```
 
-### Session (`currentUser`)
-Stores the logged-in user object (same shape as one user entry).
+### תוצאות – `exam_results`
+```json
+[{
+  "id": "result_...",
+  "examId": "exam_...",
+  "studentId": "user_...",
+  "answers": [0, 2, 1],
+  "score": 67,
+  "submittedAt": "..."
+}]
+```
 
-## Main Flows
+### Session – `currentUser`
+אובייקט User של המשתמש המחובר.
 
-### Registration Flow
-1. `register.html` → `register.js`
-2. `AuthService.register()` creates `User`
-3. User saved to `exam_users` in localStorage
-4. Redirect to login
+## UML – מחלקות עיקריות
 
-### Login Flow
-1. `login.html` → `login.js`
-2. `AuthService.login()` validates credentials
-3. Session saved in `currentUser`
-4. Redirect by role to teacher/student dashboard
+```mermaid
+classDiagram
+    class User {
+      +String id
+      +String name
+      +String idNumber
+      +String email
+      +String password
+      +String role
+      +toJSON()
+      +fromJSON()
+    }
 
-### Teacher Exam Management Flow
-1. Teacher creates exam in `createExam.js`
-2. `ExamService.createExam()` stores exam JSON
-3. Teacher adds questions in `examDetails.js`
-4. `Exam.addQuestion()` updates exam object
-5. Results visible via `ExamService.getResultsByExam()`
+    class Question {
+      +String id
+      +String text
+      +Array options
+      +Number correctIndex
+    }
 
-### Student Exam Flow
-1. Student searches in `searchExam.js`
-2. Opens `take-exam.html?id=...`
-3. Submits answers → `ExamService.submitExam()`
-4. Score calculated and saved in `exam_results`
-5. History shown in `studentHome.js`
+    class Exam {
+      +String id
+      +String name
+      +String code
+      +String teacherId
+      +Question[] questions
+      +addQuestion()
+      +updateQuestion()
+      +removeQuestion()
+    }
 
-## Class Responsibilities
+    class ExamResult {
+      +String id
+      +String examId
+      +String studentId
+      +Array answers
+      +Number score
+    }
 
-- **User**: account entity
-- **Question**: one multiple-choice question
-- **Exam**: exam metadata + question collection
-- **ExamResult**: one student attempt
-- **StorageService**: generic localStorage CRUD
-- **AuthService**: auth + session
-- **ExamService**: exam and result business logic
+    class StorageService {
+      +getAll()
+      +saveAll()
+      +add()
+      +update()
+      +remove()
+    }
+
+    class AuthService {
+      -StorageService storage
+      +register()
+      +login()
+      +getCurrentUser()
+    }
+
+    class ExamService {
+      -StorageService examStorage
+      -StorageService resultStorage
+      +createExam()
+      +updateExam()
+      +deleteExam()
+      +searchExams()
+      +submitExam()
+    }
+
+    Exam *-- Question
+    AuthService --> StorageService
+    AuthService --> User
+    ExamService --> StorageService
+    ExamService --> Exam
+    ExamService --> ExamResult
+```
+
+## Flows מרכזיים
+
+### Flow 1 – הרשמה והתחברות
+```mermaid
+sequenceDiagram
+    participant Page as register/login.html
+    participant Auth as AuthService
+    participant LS as localStorage
+
+    Page->>Auth: register(userData)
+    Auth->>LS: exam_users.push(User.toJSON())
+    Page->>Auth: login(email, password)
+    Auth->>LS: currentUser = User.toJSON()
+    Page->>Page: redirect by role
+```
+
+### Flow 2 – מורה יוצר מבחן
+```mermaid
+sequenceDiagram
+    participant T as teacher/create-exam.js
+    participant ES as ExamService
+    participant LS as localStorage
+
+    T->>ES: createExam({name, teacherId, ...})
+    ES->>LS: exam_exams.push(Exam.toJSON())
+    T->>T: redirect to exam.html?id=
+```
+
+### Flow 3 – סטודנט מבצע מבחן
+```mermaid
+sequenceDiagram
+    participant S as takeExam.js
+    participant ES as ExamService
+    participant LS as localStorage
+
+    S->>ES: getExamById(id)
+    S->>S: collect answers + timer
+    S->>ES: submitExam(examId, studentId, answers)
+    ES->>ES: calculateScore()
+    ES->>LS: exam_results.push(ExamResult.toJSON())
+    S->>S: show score + correct answers
+```
+
+## אחריות מחלקות
+
+| מחלקה | אחריות |
+|--------|---------|
+| `User` | ישות משתמש (מורה/סטודנט) |
+| `Question` | שאלה אמריקאית עם אפשרויות |
+| `Exam` | מבחן + אוסף שאלות |
+| `ExamResult` | ניסיון הגשה של סטודנט |
+| `StorageService` | עטיפה ל-localStorage |
+| `AuthService` | אימות והרשאות |
+| `ExamService` | לוגיקת מבחנים וציונים |

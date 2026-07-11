@@ -1,74 +1,82 @@
-# Exam System - Client Side Project
+# פרויקט המשך – מערכת מבחנים צד לקוח (Client Side)
 
-Browser-only exam management system built for **סדנת תכנות בסביבת האינטרנט** (Tel-Hai).
+מערכת מבחנים מלאה הפועלת **בדפדפן בלבד** – פרויקט לקורס **סדנת תכנות בסביבת האינטרנט**, מכללת תל-חי.
 
-## Features
+## קישורים
+- **GitHub:** https://github.com/Mohammad-Safadi/exam-system-client
+- **Deploy (GitHub Pages):** https://mohammad-safadi.github.io/exam-system-client/
 
-### Teacher
-- Create, edit, and delete exams
-- Add multiple-choice questions
-- View student results per exam
-- Manage exams with unique access codes
-
-### Student
-- Search exams by name or code
-- Take exams and submit answers
-- View score immediately after submission
-- See exam history and average score
-
-## Tech Stack
-- HTML5 + CSS3
-- JavaScript ES Modules
+## טכנולוגיות
+- ES Modules
 - OOP Classes
-- JSON data format
-- localStorage persistence
+- JSON
+- localStorage
 
-## Project Structure
+## תפקידי משתמשים
+
+### מורה
+- יצירה, עריכה ומחיקה של מבחנים
+- הוספת שאלות אמריקאיות
+- צפייה ברשימת מבחנים שיצר
+- צפייה בתוצאות תלמידים
+
+### סטודנט
+- צפייה במבחנים זמינים
+- חיפוש מבחן לפי שם או קוד
+- ביצוע מבחן ושליחה
+- צפייה בציון מיידי, היסטוריה וממוצע
+
+## דפים במערכת
+
+| דף | קובץ |
+|----|------|
+| דף ראשי (שם + ת.ז + GitHub) | `index.html` |
+| הרשמה | `register.html` |
+| התחברות | `login.html` |
+| התנתקות | `logout.html` |
+| דף ראשי למורה | `teacher/index.html` |
+| יצירת מבחן | `teacher/create-exam.html` |
+| פרטי מבחן | `teacher/exam.html` |
+| דף ראשי לסטודנט | `student/index.html` |
+| חיפוש מבחן | `student/search.html` |
+| ביצוע מבחן | `student/take-exam.html` |
+
+## מבנה קבצים
 
 ```
 exam-system-client/
-├── index.html              # Landing page
-├── login.html              # Login
-├── register.html           # Registration
+├── index.html, login.html, register.html, logout.html
 ├── css/styles.css
 ├── js/
-│   ├── models/             # User, Exam, Question, ExamResult
-│   ├── services/           # Auth, Exam, Storage services
-│   ├── pages/              # Page controllers
-│   ├── components/nav.js
-│   └── utils/helpers.js
+│   ├── models/       # User, Exam, Question, ExamResult
+│   ├── services/     # AuthService, ExamService, StorageService
+│   ├── pages/        # לוגיקה לכל דף
+│   ├── components/   # nav.js
+│   └── utils/        # helpers.js
 ├── teacher/
-│   ├── index.html          # Teacher dashboard
-│   ├── create-exam.html
-│   └── exam.html           # Exam details + questions + results
 └── student/
-    ├── index.html          # Student dashboard
-    ├── search.html
-    └── take-exam.html
 ```
 
-## Run Locally
+## שירותים (Services)
 
-Use Live Server (VS Code) or any static server:
+| שירות | תפקיד |
+|-------|--------|
+| `StorageService` | CRUD גנרי על localStorage |
+| `AuthService` | הרשמה, התחברות, session |
+| `ExamService` | ניהול מבחנים ותוצאות |
 
-```bash
-npx serve .
-```
+## הרצה מקומית
+פתח עם **Live Server** ב-VS Code על `index.html`.
 
-Then open `http://localhost:3000`.
+## משתמשי דמו
+- מורה: `teacher@demo.com` / `1234`
+- סטודנט: `student@demo.com` / `1234`
 
-## Demo Accounts
+## תוספות (מעבר לדרישות הבסיסיות)
+- ⏱️ טיימר למבחן
+- ✅ הצגת תשובות נכונות לאחר הגשה
 
-- Teacher: `teacher@demo.com` / `1234`
-- Student: `student@demo.com` / `1234`
-
-## GitHub Pages
-
-1. Push repository to GitHub
-2. Settings → Pages → Deploy from `main` branch
-3. Use deployed URL in submission
-
-## OOP Diagram (Main Classes)
+## OOP Diagram
 
 ```mermaid
 classDiagram
@@ -126,11 +134,8 @@ classDiagram
     AuthService --> User
 ```
 
-## Author
+## מפתח
+- **שם:** אילייא רינאוי
+- **ת.ז:** עדכן ב-`js/pages/home.js`
 
-- **Name:** אילייא רינאוי
-- **ID:** Update in `js/pages/home.js`
-- **GitHub:** https://github.com/Mohammad-Safadi/exam-system-client
-- **Live Demo:** https://mohammad-safadi.github.io/exam-system-client/
-
-See `TECHNICAL.md` for JSON formats and navigation flow.
+מסמך טכני מלא: `TECHNICAL.md`
