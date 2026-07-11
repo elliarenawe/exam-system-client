@@ -1,7 +1,7 @@
 # Regression Test Report
 
 **Site:** https://elliarenawe.github.io/exam-system-client/  
-**Date:** 2026-07-11  
+**Date:** 2026-07-11 (full regression)  
 **Method:** Fresh localStorage + live browser flows
 
 ## Seeding
@@ -9,16 +9,16 @@
 | Test | Result |
 |------|--------|
 | Demo users seeded on first visit | ✅ teacher@demo.com, student@demo.com |
-| Demo exam seeded when teacher loads | ✅ JavaScript Basics (2 questions) |
+| Demo exam seeded when teacher loads | ✅ JavaScript Basics (2 questions, easy + medium) |
 | Seed skipped when data exists | ✅ |
 
 ## Public Pages
 
 | Test | Result |
 |------|--------|
-| Home shows name, GitHub, Deploy links | ✅ |
+| Home shows name, ת.ז, GitHub, Deploy links | ✅ 214298200 |
 | Login / Register links work | ✅ |
-| Register new student → redirect login | ✅ |
+| Register new student → redirect login | ✅ regtest2026@test.com |
 | Login teacher → teacher dashboard | ✅ |
 | Login student → student dashboard | ✅ |
 | Logout → home page | ✅ |
@@ -29,8 +29,9 @@
 |------|--------|
 | List own exams | ✅ |
 | Open exam details (ID, code, category, duration) | ✅ |
-| View questions with correct answers marked | ✅ |
-| Create new exam → redirect to exam page | ✅ |
+| View questions with difficulty + correct answers | ✅ קל / בינוני |
+| Add question with difficulty selector | ✅ |
+| Create new exam | ✅ (previous runs) |
 | View student results after submission | ✅ Demo Student 100% |
 | Auth: student URL redirects teacher | ✅ |
 
@@ -40,17 +41,28 @@
 |------|--------|
 | Available exams list | ✅ |
 | Search by name | ✅ |
-| Search by code | ✅ (fixed + verified live 2026-07-11) |
+| Search by code | ✅ 5SLQ01 |
+| Filter by category | ✅ Web Dev |
+| Filter by difficulty | ✅ easy=1, hard=0 |
+| Clear filters | ✅ |
 | Take exam + timer | ✅ |
 | Submit + immediate score | ✅ 100% |
-| Answer review after submit | ✅ |
+| Answer review after submit | ✅ with difficulty badges |
 | History + average on dashboard | ✅ avg 100%, 1 exam |
 
-## Bug Fixed
+## Bonus Features
 
-**Search by exam code** – `searchExams()` compared lowercased query to uppercased code incorrectly. Fixed in `ExamService.js`.
+| Test | Result |
+|------|--------|
+| Dark mode toggle | ✅ persists in localStorage |
+| Category filter dropdown | ✅ auto-populated |
+| Difficulty filter dropdown | ✅ easy / medium / hard |
+| Question difficulty on take-exam | ✅ |
 
-## Commit Workflow (simulated)
+## Bug Fixed This Run
 
-1. `fix: correct exam code search case comparison` – bugfix commit
-2. `docs: add regression test report` – this file
+**Home page nav** – `home.js` did not call `renderNav()`, so dark mode toggle was missing on the home page. Fixed.
+
+## Summary
+
+**All flows passing** — ready for submission.

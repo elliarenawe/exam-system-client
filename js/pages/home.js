@@ -1,3 +1,7 @@
+import { renderNav } from '../components/nav.js';
+
+renderNav('nav');
+
 /** רשימת מפתחי הפרויקט לדף הראשי – עדכן ת.ז לפני הגשה */
 const teamMembers = [
   {
